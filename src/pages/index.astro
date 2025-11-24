@@ -44,12 +44,7 @@ const metadata = {
           id="next-stream-wrapper"
           class="inline-flex items-center gap-3 rounded-full border border-[#c29200]/70 bg-black/70 px-5 py-2 text-xs md:text-sm shadow-[0_0_25px_rgba(0,0,0,0.7)]"
         >
-          <!-- الكلام يمين -->
-          <span class="text-slate-100 text-[13px] md:text-sm">
-            البث القادم خلال :
-          </span>
-
-          <!-- الوقت -->
+          <!-- الرقم يمين -->
           <span
             id="next-stream-timer"
             class="font-mono text-sm md:text-base font-semibold text-[#ffda6a]"
@@ -57,7 +52,12 @@ const metadata = {
             -- : -- : --
           </span>
 
-          <!-- الأيقونة -->
+          <!-- الكلام يسار -->
+          <span class="text-slate-100 text-[13px] md:text-sm">
+            البث القادم خلال
+          </span>
+
+          <!-- الأيقونة يسار الكل -->
           <span
             class="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#c29200]/70 text-[12px] text-[#ffda6a] bg-black/60"
           >
@@ -118,7 +118,7 @@ const metadata = {
     </div>
   </section>
 
-  <!-- 🧠 سكربت العدّ التنازلي + وضع "البث شغال" -->
+  <!-- 🧠 سكربت العدّ التنازلي + وضع "البث شغال" مع إضاءة -->
   <script>
     // وقت بداية البث ونهايته (يوميًا)
     const STREAM_START_HOUR = 20; // 20 = 8 مساءً
@@ -173,13 +173,12 @@ const metadata = {
         const now = new Date();
 
         if (isInStreamWindow(now)) {
-          // داخل وقت البث
+          // داخل وقت البث → نص يضيء
           timerEl.textContent = 'البث شغّال الآن! انضم للبث 👇';
           timerEl.classList.remove('font-mono');
-          timerEl.classList.add('font-bold');
+          timerEl.classList.add('font-bold', 'animate-pulse');
 
           if (wrapperEl) {
-            // هالة ذهبية خفيفة حول الكبسولة
             wrapperEl.classList.add('ring-1', 'ring-yellow-400/60');
           }
           return;
@@ -198,8 +197,9 @@ const metadata = {
           String(m).padStart(2, '0') + ' : ' +
           String(s).padStart(2, '0');
 
+        // رجّع شكل الأرقام الطبيعي
         timerEl.classList.add('font-mono');
-        timerEl.classList.remove('font-bold');
+        timerEl.classList.remove('font-bold', 'animate-pulse');
 
         if (wrapperEl) {
           wrapperEl.classList.remove('ring-1', 'ring-yellow-400/60');
