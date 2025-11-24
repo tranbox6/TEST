@@ -57,7 +57,7 @@ const metadata = {
             id="next-stream-label"
             class="text-slate-100 text-[13px] md:text-sm"
           >
-            البث القادم خلال
+            :البث القادم خلال
           </span>
 
           <!-- الأيقونة يسار الكل -->
@@ -217,7 +217,7 @@ const metadata = {
 
         // لو احنا داخل وقت البث (بس السبت–الأربعاء)
         if (isInStreamWindow(now)) {
-          timerEl.textContent = 'البث شغّال الآن! انضم للبث 👇';
+          timerEl.textContent = '👇البث شغّال الآن! انضم للبث';
           timerEl.classList.remove('font-mono');
           timerEl.classList.add('font-bold', 'tnx-live-glow');
 
@@ -253,7 +253,7 @@ const metadata = {
         // لو اليوم مو من أيام البث (خميس أو جمعة) غيّر النص
         if (labelEl) {
           if (!isStreamDay(now)) {
-            labelEl.textContent = 'اليوم ما فيه بث - البث القادم بعد';
+            labelEl.textContent = ':اليوم ما فيه بث - البث القادم بعد';
           } else {
             labelEl.textContent = 'البث القادم خلال';
           }
