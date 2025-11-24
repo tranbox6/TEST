@@ -38,7 +38,7 @@ const metadata = {
         </a>
       </div>
 
-      <!-- 🔴 كبسولة العدّاد بين النص والأزرار وبين مربع تويتش -->
+      <!-- 🔴 كبسولة العدّاد -->
       <div class="mb-6 flex justify-center">
         <div
           id="next-stream-wrapper"
@@ -57,7 +57,7 @@ const metadata = {
             id="next-stream-label"
             class="text-slate-100 text-[13px] md:text-sm"
           >
-            :البث القادم خلال
+            البث القادم خلال
           </span>
 
           <!-- الأيقونة يسار الكل -->
@@ -69,6 +69,7 @@ const metadata = {
         </div>
       </div>
 
+      <!-- 🎥 مربع تويتش -->
       <div class="relative w-full max-w-4xl mx-auto aspect-video rounded-2xl overflow-hidden shadow-2xl border border-[#c29200]/40">
         <iframe
           src="https://player.twitch.tv/?channel=tnx_6&parent=tnx6.xyz"
@@ -78,6 +79,95 @@ const metadata = {
           width="100%"
           height="100%"
         ></iframe>
+      </div>
+
+      <!-- 📅 جدول البث الأسبوعي تحت مربع البث -->
+      <div class="mt-10 w-full max-w-5xl mx-auto">
+        <div class="rounded-3xl border border-[#c29200]/40 bg-black/70 px-5 py-4 md:px-8 md:py-6 shadow-[0_0_25px_rgba(0,0,0,0.65)]">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2 text-sm md:text-base">
+              <iconify-icon icon="tabler:calendar-time" class="text-[#ffda6a] text-lg md:text-xl"></iconify-icon>
+              <h2 class="font-semibold text-white">
+                جدول البث الأسبوعي
+              </h2>
+            </div>
+            <span class="px-4 py-1 rounded-full border border-[#c29200]/60 text-xs md:text-sm text-[#ffda6a] bg-black/40">
+              عرض الجدول
+            </span>
+          </div>
+
+          <div class="grid gap-3 md:grid-cols-5">
+            <!-- السبت -->
+            <div class="rounded-2xl border border-[#c29200]/60 bg-[#050509] px-4 py-3 text-right text-xs md:text-sm text-gray-200">
+              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-400">
+                <span>٨:٣٠ م</span>
+                <span class="inline-flex items-center gap-1">
+                  <iconify-icon icon="tabler:clock" class="text-[#ffda6a] text-[14px]"></iconify-icon>
+                </span>
+              </div>
+              <div class="font-semibold text-sm md:text-base mb-1">السبت</div>
+              <div class="text-[11px] md:text-xs text-gray-400">
+                بث ألعاب + فعاليات المجتمع
+              </div>
+            </div>
+
+            <!-- الأحد -->
+            <div class="rounded-2xl border border-transparent bg-[#050509] px-4 py-3 text-right text-xs md:text-sm text-gray-200">
+              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-400">
+                <span>٨:٣٠ م</span>
+                <span class="inline-flex items-center gap-1">
+                  <iconify-icon icon="tabler:clock" class="text-[#c4c4c4] text-[14px]"></iconify-icon>
+                </span>
+              </div>
+              <div class="font-semibold text-sm md:text-base mb-1">الأحد</div>
+              <div class="text-[11px] md:text-xs text-gray-400">
+                قصص، سوالف، Just Chatting
+              </div>
+            </div>
+
+            <!-- الاثنين -->
+            <div class="rounded-2xl border border-transparent bg-[#050509] px-4 py-3 text-right text-xs md:text-sm text-gray-200">
+              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-400">
+                <span>٨:٣٠ م</span>
+                <span class="inline-flex items-center gap-1">
+                  <iconify-icon icon="tabler:clock" class="text-[#c4c4c4] text-[14px]"></iconify-icon>
+                </span>
+              </div>
+              <div class="font-semibold text-sm md:text-base mb-1">الاثنين</div>
+              <div class="text-[11px] md:text-xs text-gray-400">
+                قصص ألعاب + تحديات
+              </div>
+            </div>
+
+            <!-- الثلاثاء -->
+            <div class="rounded-2xl border border-transparent bg-[#050509] px-4 py-3 text-right text-xs md:text-sm text-gray-200">
+              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-400">
+                <span>٨:٣٠ م</span>
+                <span class="inline-flex items-center gap-1">
+                  <iconify-icon icon="tabler:clock" class="text-[#c4c4c4] text-[14px]"></iconify-icon>
+                </span>
+              </div>
+              <div class="font-semibold text-sm md:text-base mb-1">الثلاثاء</div>
+              <div class="text-[11px] md:text-xs text-gray-400">
+                مسابقات، مين يقدر يفوز؟
+              </div>
+            </div>
+
+            <!-- الأربعاء -->
+            <div class="rounded-2xl border border-transparent bg-[#050509] px-4 py-3 text-right text-xs md:text-sm text-gray-200">
+              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-400">
+                <span>٨:٣٠ م</span>
+                <span class="inline-flex items-center gap-1">
+                  <iconify-icon icon="tabler:clock" class="text-[#c4c4c4] text-[14px]"></iconify-icon>
+                </span>
+              </div>
+              <div class="font-semibold text-sm md:text-base mb-1">الأربعاء</div>
+              <div class="text-[11px] md:text-xs text-gray-400">
+                ليلة خاصة لمحتوى مختلف / مفاجآت
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -217,7 +307,7 @@ const metadata = {
 
         // لو احنا داخل وقت البث (بس السبت–الأربعاء)
         if (isInStreamWindow(now)) {
-          timerEl.textContent = '👇البث شغّال الآن! انضم للبث';
+          timerEl.textContent = 'البث شغّال الآن! انضم للبث 👇';
           timerEl.classList.remove('font-mono');
           timerEl.classList.add('font-bold', 'tnx-live-glow');
 
@@ -253,7 +343,7 @@ const metadata = {
         // لو اليوم مو من أيام البث (خميس أو جمعة) غيّر النص
         if (labelEl) {
           if (!isStreamDay(now)) {
-            labelEl.textContent = ':اليوم ما فيه بث - البث القادم بعد';
+            labelEl.textContent = 'اليوم ما فيه بث - البث القادم بعد';
           } else {
             labelEl.textContent = 'البث القادم خلال';
           }
