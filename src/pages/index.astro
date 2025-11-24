@@ -42,27 +42,28 @@ const metadata = {
       <div class="mb-6 flex justify-center">
         <div
           id="next-stream-wrapper"
-          class="inline-flex items-center gap-3 rounded-full border border-[#c29200]/70 bg-black/70 px-5 py-2 text-xs md:text-sm shadow-[0_0_25px_rgba(0,0,0,0.7)]"
+          class="flex items-center justify-between w-full max-w-md rounded-full border border-[#c29200]/70 bg-black/70 px-5 py-2 text-xs md:text-sm shadow-[0_0_25px_rgba(0,0,0,0.7)]"
         >
-          <!-- النص أول شيء -->
+          <!-- الكلام يمين -->
           <span class="text-slate-100 text-[13px] md:text-sm">
-            البث القادم خلال:
+            البث القادم خلال :
           </span>
 
-          <!-- الوقت على اليسار -->
-          <span
-            id="next-stream-timer"
-            class="font-mono text-sm md:text-base font-semibold text-[#ffda6a]"
-          >
-            -- : -- : --
-          </span>
+          <!-- الوقت + الأيقونة يسار -->
+          <div class="flex items-center gap-2">
+            <span
+              id="next-stream-timer"
+              class="font-mono text-sm md:text-base font-semibold text-[#ffda6a]"
+            >
+              -- : -- : --
+            </span>
 
-          <!-- أيقونة جديدة بدل الساعة -->
-          <span
-            class="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#c29200]/70 text-[12px] text-[#ffda6a] bg-black/60"
-          >
-            🎥
-          </span>
+            <span
+              class="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#c29200]/70 text-[12px] text-[#ffda6a] bg-black/60"
+            >
+              🎥
+            </span>
+          </div>
         </div>
       </div>
 
