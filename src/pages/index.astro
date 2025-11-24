@@ -54,7 +54,7 @@ const metadata = {
 
           <!-- الكلام يسار -->
           <span class="text-slate-100 text-[13px] md:text-sm">
-            :البث القادم خلال
+            البث القادم خلال
           </span>
 
           <!-- الأيقونة يسار الكل -->
@@ -147,50 +147,60 @@ const metadata = {
     }
   </style>
 
-  <!-- 🧠 سكربت العدّ التنازلي + وضع "البث شغال" مع Glow -->
+  <!-- 🧠 سكربت العدّ التنازلي + وضع "البث شغال" مع Glow
+       يبث من السبت إلى الأربعاء فقط -->
   <script>
-    // وقت بداية البث ونهايته (يوميًا)
+    // أوقات البث
     const STREAM_START_HOUR = 20; // 20 = 8 مساءً
     const STREAM_START_MINUTE = 30;
     const STREAM_END_HOUR = 2; // 2 = 2 صباحًا
 
-    // هل نحن في فترة البث الآن؟ (من 8:30م إلى 2:00ص)
-    function isInStreamWindow(now) {
-      const current = new Date(now);
+    // أيام البث: السبت (6)، الأحد (0)، الاثنين (1)، الثلاثاء (2)، الأربعاء (3)
+    const STREAM_DAYS = [6, 0, 1, 2, 3];
 
-      // لو الساعة أقل من 2 الصباح، نعتبر البث تبع "اليوم السابق"
-      let streamDay = new Date(current);
-      if (current.getHours() < STREAM_END_HOUR) {
-        streamDay.setDate(streamDay.getDate() - 1);
-      }
-
-      const start = new Date(streamDay);
-      start.setHours(STREAM_START_HOUR, STREAM_START_MINUTE, 0, 0);
-
-      const end = new Date(start);
-      end.setDate(end.getDate() + 1);
-      end.setHours(STREAM_END_HOUR, 0, 0, 0);
-
-      return current >= start && current < end;
+    function isStreamDay(date) {
+      return STREAM_DAYS.includes(date.getDay());
     }
 
-    // يعطينا أقرب وقت بث قادم (8:30م القادم)
-    function getNextStreamStart(now) {
-      const base = new Date(now);
+    // هل نحن داخل نافذة بث لأحد أيام السبت-الأربعاء؟
+    function isInStreamWindow(now) {
+      const today = new Date(now);
+      const yesterday = new Date(now);
+      yesterday.setDate(yesterday.getDate() - 1);
 
-      const startToday = new Date(base);
-      startToday.setHours(STREAM_START_HOUR, STREAM_START_MINUTE, 0, 0);
+      function inWindowFor(dateObj) {
+        if (!isStreamDay(dateObj)) return false;
 
-      // لو لسه ما جت 8:30 اليوم → البث القادم اليوم
-      if (base < startToday) {
-        return startToday;
+        const start = new Date(dateObj);
+        start.setHours(STREAM_START_HOUR, STREAM_START_MINUTE, 0, 0);
+
+        const end = new Date(start);
+        end.setDate(end.getDate() + 1);
+        end.setHours(STREAM_END_HOUR, 0, 0, 0);
+
+        return now >= start && now < end;
       }
 
-      // لو عدّينا 8:30 اليوم → البث القادم بكرة 8:30
-      const tomorrow = new Date(base);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      tomorrow.setHours(STREAM_START_HOUR, STREAM_START_MINUTE, 0, 0);
-      return tomorrow;
+      // نتحقق من نافذة اليوم + نافذة أمس (عشان بعد 12 بالليل لحد 2 الصباح)
+      return inWindowFor(today) || inWindowFor(yesterday);
+    }
+
+    // أقرب وقت بث قادم (لأقرب يوم من السبت إلى الأربعاء)
+    function getNextStreamStart(now) {
+      for (let offset = 0; offset < 10; offset++) {
+        const candidateDay = new Date(now);
+        candidateDay.setDate(candidateDay.getDate() + offset);
+
+        if (!isStreamDay(candidateDay)) continue;
+
+        const start = new Date(candidateDay);
+        start.setHours(STREAM_START_HOUR, STREAM_START_MINUTE, 0, 0);
+
+        if (start > now) {
+          return start;
+        }
+      }
+      return null;
     }
 
     function startNextStreamCountdown() {
@@ -203,7 +213,7 @@ const metadata = {
 
         if (isInStreamWindow(now)) {
           // داخل وقت البث → نص مع glow
-          timerEl.textContent = '👇 البث شغّال الآن! انضم للبث ';
+          timerEl.textContent = 'البث شغّال الآن! انضم للبث 👇';
           timerEl.classList.remove('font-mono');
           timerEl.classList.add('font-bold', 'tnx-live-glow');
 
@@ -213,8 +223,19 @@ const metadata = {
           return;
         }
 
-        // خارج وقت البث → عدّاد تنازلي لوقت 8:30م القادم
         const next = getNextStreamStart(now);
+        if (!next) {
+          // لو صار في خطأ غريب، نوقف العدّاد
+          timerEl.textContent = '-- : -- : --';
+          timerEl.classList.add('font-mono');
+          timerEl.classList.remove('font-bold', 'tnx-live-glow');
+          if (wrapperEl) {
+            wrapperEl.classList.remove('ring-1', 'ring-yellow-400/60');
+          }
+          return;
+        }
+
+        // عدّاد تنازلي لأقرب بث (يوم من السبت–الأربعاء)
         const diffMs = next - now;
         const totalSeconds = Math.max(0, Math.floor(diffMs / 1000));
         const h = Math.floor(totalSeconds / 3600);
@@ -226,7 +247,6 @@ const metadata = {
           String(m).padStart(2, '0') + ' : ' +
           String(s).padStart(2, '0');
 
-        // رجّع شكل الأرقام الطبيعي
         timerEl.classList.add('font-mono');
         timerEl.classList.remove('font-bold', 'tnx-live-glow');
 
