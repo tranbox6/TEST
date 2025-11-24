@@ -82,7 +82,7 @@ const metadata = {
       </div>
 
       <!-- 📅 جدول البث الأسبوعي تحت مربع البث -->
-      <div class="mt-10 w-full max-w-5xl mx-auto">
+      <div class="mt-10 w-full max-w-5xl mx-auto" dir="rtl">
         <div class="rounded-3xl border border-[#c29200]/40 bg-black/70 px-5 py-4 md:px-8 md:py-6 shadow-[0_0_25px_rgba(0,0,0,0.65)]">
           <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-2 text-sm md:text-base">
@@ -91,78 +91,90 @@ const metadata = {
                 جدول البث الأسبوعي
               </h2>
             </div>
-            <span class="px-4 py-1 rounded-full border border-[#c29200]/60 text-xs md:text-sm text-[#ffda6a] bg-black/40">
-              عرض الجدول
-            </span>
           </div>
 
           <div class="grid gap-3 md:grid-cols-5">
             <!-- السبت -->
-            <div class="rounded-2xl border border-[#c29200]/60 bg-[#050509] px-4 py-3 text-right text-xs md:text-sm text-gray-200">
-              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-400">
+            <div
+              class="tnx-schedule-card rounded-2xl border border-transparent px-4 py-3 text-right text-xs md:text-sm text-gray-200"
+              data-schedule-day="6"
+            >
+              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-300">
                 <span>٨:٣٠ م</span>
                 <span class="inline-flex items-center gap-1">
                   <iconify-icon icon="tabler:clock" class="text-[#ffda6a] text-[14px]"></iconify-icon>
                 </span>
               </div>
               <div class="font-semibold text-sm md:text-base mb-1">السبت</div>
-              <div class="text-[11px] md:text-xs text-gray-400">
+              <div class="text-[11px] md:text-xs text-gray-300">
                 بث ألعاب + فعاليات المجتمع
               </div>
             </div>
 
             <!-- الأحد -->
-            <div class="rounded-2xl border border-transparent bg-[#050509] px-4 py-3 text-right text-xs md:text-sm text-gray-200">
-              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-400">
+            <div
+              class="tnx-schedule-card rounded-2xl border border-transparent px-4 py-3 text-right text-xs md:text-sm text-gray-200"
+              data-schedule-day="0"
+            >
+              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-300">
                 <span>٨:٣٠ م</span>
                 <span class="inline-flex items-center gap-1">
-                  <iconify-icon icon="tabler:clock" class="text-[#c4c4c4] text-[14px]"></iconify-icon>
+                  <iconify-icon icon="tabler:clock" class="text-[#ffda6a] text-[14px]"></iconify-icon>
                 </span>
               </div>
               <div class="font-semibold text-sm md:text-base mb-1">الأحد</div>
-              <div class="text-[11px] md:text-xs text-gray-400">
+              <div class="text-[11px] md:text-xs text-gray-300">
                 قصص، سوالف، Just Chatting
               </div>
             </div>
 
             <!-- الاثنين -->
-            <div class="rounded-2xl border border-transparent bg-[#050509] px-4 py-3 text-right text-xs md:text-sm text-gray-200">
-              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-400">
+            <div
+              class="tnx-schedule-card rounded-2xl border border-transparent px-4 py-3 text-right text-xs md:text-sm text-gray-200"
+              data-schedule-day="1"
+            >
+              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-300">
                 <span>٨:٣٠ م</span>
                 <span class="inline-flex items-center gap-1">
-                  <iconify-icon icon="tabler:clock" class="text-[#c4c4c4] text-[14px]"></iconify-icon>
+                  <iconify-icon icon="tabler:clock" class="text-[#ffda6a] text-[14px]"></iconify-icon>
                 </span>
               </div>
               <div class="font-semibold text-sm md:text-base mb-1">الاثنين</div>
-              <div class="text-[11px] md:text-xs text-gray-400">
+              <div class="text-[11px] md:text-xs text-gray-300">
                 قصص ألعاب + تحديات
               </div>
             </div>
 
             <!-- الثلاثاء -->
-            <div class="rounded-2xl border border-transparent bg-[#050509] px-4 py-3 text-right text-xs md:text-sm text-gray-200">
-              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-400">
+            <div
+              class="tnx-schedule-card rounded-2xl border border-transparent px-4 py-3 text-right text-xs md:text-sm text-gray-200"
+              data-schedule-day="2"
+            >
+              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-300">
                 <span>٨:٣٠ م</span>
                 <span class="inline-flex items-center gap-1">
-                  <iconify-icon icon="tabler:clock" class="text-[#c4c4c4] text-[14px]"></iconify-icon>
+                  <iconify-icon icon="tabler:clock" class="text-[#ffda6a] text-[14px]"></iconify-icon>
                 </span>
               </div>
               <div class="font-semibold text-sm md:text-base mb-1">الثلاثاء</div>
-              <div class="text-[11px] md:text-xs text-gray-400">
+              <div class="text-[11px] md:text-xs text-gray-300">
                 مسابقات، مين يقدر يفوز؟
               </div>
             </div>
 
             <!-- الأربعاء -->
-            <div class="rounded-2xl border border-transparent bg-[#050509] px-4 py-3 text-right text-xs md:text-sm text-gray-200">
-              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-400">
+            <div
+              class="tnx-schedule-card rounded-2xl border border-transparent px-4 py-3 text-right text-xs md:text-sm text-gray-200"
+              data-schedule-day="3"
+            >
+              <div class="flex items-center justify-between mb-2 text-[11px] md:text-[12px] text-gray-300">
                 <span>٨:٣٠ م</span>
                 <span class="inline-flex items-center gap-1">
-                  <iconify-icon icon="tabler:clock" class="text-[#c4c4c4] text-[14px]"></iconify-icon>
+                  <iconify-icon icon="tabler:clock" class="text-[#ffda6a] text-[14px]"></iconify-icon>
                 </span>
               </div>
               <div class="font-semibold text-sm md:text-base mb-1">الأربعاء</div>
-              <div class="text-[11px] md:text-xs text-gray-400">
+              <div class="text-[11px] md:text-xs text-gray-300">
                 ليلة خاصة لمحتوى مختلف / مفاجآت
               </div>
             </div>
@@ -211,10 +223,10 @@ const metadata = {
     </div>
   </section>
 
-  <!-- 🌟 ستايل الـ glow للنص وقت البث -->
+  <!-- 🌟 ستايل الـ glow + شكل كروت الجدول -->
   <style is:global>
     .tnx-live-glow {
-      color: #fef08a; /* أصفر أفتح شوي */
+      color: #fef08a;
       text-shadow:
         0 0 5px #facc15,
         0 0 12px #facc15,
@@ -238,10 +250,18 @@ const metadata = {
         transform: translateY(-0.5px);
       }
     }
+
+    .tnx-schedule-card {
+      background: #080b12; /* أفتح من قبل شوي */
+    }
+
+    .tnx-schedule-card--active {
+      border-color: rgba(194, 146, 0, 0.9) !important;
+      box-shadow: 0 0 22px rgba(194, 146, 0, 0.45);
+    }
   </style>
 
-  <!-- 🧠 سكربت العدّ التنازلي + وضع "البث شغال" مع Glow
-       يبث من السبت إلى الأربعاء فقط -->
+  <!-- 🧠 سكربت العدّ التنازلي + وضع "البث شغال" + تمييز يوم الجدول -->
   <script>
     // أوقات البث
     const STREAM_START_HOUR = 20; // 20 = 8 مساءً
@@ -274,7 +294,6 @@ const metadata = {
         return now >= start && now < end;
       }
 
-      // نتحقق من نافذة اليوم + نافذة أمس (عشان بعد 12 بالليل لحد 2 الصباح)
       return inWindowFor(today) || inWindowFor(yesterday);
     }
 
@@ -294,6 +313,23 @@ const metadata = {
         }
       }
       return null;
+    }
+
+    // يميّز كرت اليوم الحالي بالفريم الذهبي
+    function highlightTodayScheduleCard() {
+      const today = new Date();
+      const todayDay = today.getDay();
+      const cards = document.querySelectorAll('.tnx-schedule-card');
+
+      cards.forEach((card) => {
+        card.classList.remove('tnx-schedule-card--active');
+        const dayAttr = card.getAttribute('data-schedule-day');
+        if (!dayAttr) return;
+        const cardDay = parseInt(dayAttr, 10);
+        if (cardDay === todayDay) {
+          card.classList.add('tnx-schedule-card--active');
+        }
+      });
     }
 
     function startNextStreamCountdown() {
@@ -340,7 +376,6 @@ const metadata = {
         timerEl.classList.add('font-mono');
         timerEl.classList.remove('font-bold', 'tnx-live-glow');
 
-        // لو اليوم مو من أيام البث (خميس أو جمعة) غيّر النص
         if (labelEl) {
           if (!isStreamDay(now)) {
             labelEl.textContent = 'اليوم ما فيه بث - البث القادم بعد';
@@ -360,9 +395,13 @@ const metadata = {
 
     if (typeof window !== 'undefined') {
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', startNextStreamCountdown);
+        document.addEventListener('DOMContentLoaded', () => {
+          startNextStreamCountdown();
+          highlightTodayScheduleCard();
+        });
       } else {
         startNextStreamCountdown();
+        highlightTodayScheduleCard();
       }
     }
   </script>
