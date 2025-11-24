@@ -118,7 +118,36 @@ const metadata = {
     </div>
   </section>
 
-  <!-- 🧠 سكربت العدّ التنازلي + وضع "البث شغال" مع إضاءة -->
+  <!-- 🌟 ستايل الـ glow للنص وقت البث -->
+  <style is:global>
+    .tnx-live-glow {
+      color: #fef08a; /* أصفر أفتح شوي */
+      text-shadow:
+        0 0 5px #facc15,
+        0 0 12px #facc15,
+        0 0 20px #facc15;
+      animation: tnx-live-pulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes tnx-live-pulse {
+      0%, 100% {
+        text-shadow:
+          0 0 4px #facc15,
+          0 0 10px #facc15,
+          0 0 18px #facc15;
+        transform: translateY(0);
+      }
+      50% {
+        text-shadow:
+          0 0 8px #fde68a,
+          0 0 18px #facc15,
+          0 0 28px #fbbf24;
+        transform: translateY(-0.5px);
+      }
+    }
+  </style>
+
+  <!-- 🧠 سكربت العدّ التنازلي + وضع "البث شغال" مع Glow -->
   <script>
     // وقت بداية البث ونهايته (يوميًا)
     const STREAM_START_HOUR = 20; // 20 = 8 مساءً
@@ -173,10 +202,10 @@ const metadata = {
         const now = new Date();
 
         if (isInStreamWindow(now)) {
-          // داخل وقت البث → نص يضيء
+          // داخل وقت البث → نص مع glow
           timerEl.textContent = 'البث شغّال الآن! انضم للبث 👇';
           timerEl.classList.remove('font-mono');
-          timerEl.classList.add('font-bold', 'animate-pulse');
+          timerEl.classList.add('font-bold', 'tnx-live-glow');
 
           if (wrapperEl) {
             wrapperEl.classList.add('ring-1', 'ring-yellow-400/60');
@@ -199,7 +228,7 @@ const metadata = {
 
         // رجّع شكل الأرقام الطبيعي
         timerEl.classList.add('font-mono');
-        timerEl.classList.remove('font-bold', 'animate-pulse');
+        timerEl.classList.remove('font-bold', 'tnx-live-glow');
 
         if (wrapperEl) {
           wrapperEl.classList.remove('ring-1', 'ring-yellow-400/60');
