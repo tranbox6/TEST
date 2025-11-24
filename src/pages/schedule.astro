@@ -1,0 +1,204 @@
+---
+import Layout from '~/layouts/PageLayout.astro'
+
+const metadata = {
+  title: 'جدول البث — TNX6',
+  ignoreTitleTemplate: true,
+}
+
+const weeklySchedule = [
+  { day: 'السبت', start: '8:30 م', end: '2:00 ص' },
+  { day: 'الأحد', start: '8:30 م', end: '2:00 ص' },
+  { day: 'الاثنين', start: '8:30 م', end: '2:00 ص' },
+  { day: 'الثلاثاء', start: '8:30 م', end: '2:00 ص' },
+  { day: 'الأربعاء', start: '8:30 م', end: '2:00 ص' },
+]
+---
+
+<Layout metadata={metadata}>
+  <section class="relative overflow-hidden bg-gradient-to-b from-black/80 via-[#0f0b05]/70 to-black text-white">
+    <div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_20%_20%,rgba(255,218,106,0.2),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(194,146,0,0.14),transparent_40%)]"></div>
+
+    <div class="relative max-w-6xl mx-auto px-6 py-20 space-y-12">
+      <header class="text-center space-y-4">
+        <p class="text-sm font-semibold tracking-wide text-[#ffda6a] uppercase">TNX6 STREAMS</p>
+        <h1 class="text-5xl font-extrabold bg-gradient-to-r from-[#ffda6a] to-[#c29200] bg-clip-text text-transparent drop-shadow-[0_0_14px_rgba(198,164,79,0.35)]">
+          جدول البث الأسبوعي
+        </h1>
+        <p class="text-lg text-gray-200 max-w-3xl mx-auto">
+          أبث من السبت إلى الأربعاء بين الساعة 8:30 مساءً و 2:00 صباحًا بتوقيت الرياض (UTC+3). هنا ستجد جدولاً واضحًا مع عداد تنازلي لأقرب بث قادم.
+        </p>
+      </header>
+
+      <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+        <div class="p-6 rounded-3xl bg-black/50 border border-[#c6a44f]/30 shadow-[0_10px_40px_rgba(198,164,79,0.12)] backdrop-blur">
+          <div class="flex items-center gap-3 mb-6">
+            <iconify-icon icon="tabler:calendar-week" class="text-[#ffda6a] text-3xl"></iconify-icon>
+            <div>
+              <p class="text-sm text-[#c6a44f] font-semibold">الجدول</p>
+              <h2 class="text-2xl font-bold">مواعيد البث الثابتة</h2>
+            </div>
+          </div>
+
+          <div class="grid gap-4">
+            {weeklySchedule.map((day) => (
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-2xl bg-gradient-to-r from-[#1a1408]/70 via-[#0f0b05]/70 to-[#1a1408]/70 border border-[#c6a44f]/25 shadow-[0_0_15px_rgba(198,164,79,0.08)]">
+                <div class="flex items-center gap-3">
+                  <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#c6a44f]/20 text-[#ffda6a] font-bold shadow-inner shadow-[#c6a44f]/30">
+                    {day.day[0]}
+                  </span>
+                  <p class="text-xl font-semibold">{day.day}</p>
+                </div>
+                <div class="flex items-center gap-2 text-[#f7e6ac] font-semibold">
+                  <iconify-icon icon="tabler:clock" class="text-lg"></iconify-icon>
+                  <span>{day.start} - {day.end}</span>
+                  <span class="text-xs text-gray-300">(بتوقيت الرياض)</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="mt-6 p-4 rounded-2xl bg-[#0c0a0f]/70 border border-[#c6a44f]/20 text-sm text-gray-300 flex flex-col gap-2">
+            <div class="flex items-center gap-2 text-[#ffda6a] font-semibold">
+              <iconify-icon icon="tabler:info-circle" class="text-lg"></iconify-icon>
+              <span>تنبيه التوقيت</span>
+            </div>
+            <p>تم احتساب الجدول بتوقيت الرياض (UTC+3) بدون تغيير صيفي. إذا كنت في منطقة زمنية مختلفة، اضبط التوقيت بما يناسبك.</p>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-3xl bg-gradient-to-br from-[#1a1408]/70 via-[#0d0a10]/80 to-[#1a1408]/70 border border-[#c6a44f]/35 shadow-[0_15px_45px_rgba(198,164,79,0.18)] backdrop-blur space-y-5">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-[#ffda6a]/15 border border-[#c6a44f]/50 flex items-center justify-center text-[#ffda6a]">
+              <iconify-icon icon="tabler:alarm" class="text-2xl"></iconify-icon>
+            </div>
+            <div>
+              <p id="status-label" class="text-sm text-[#c6a44f] font-semibold">يتم حساب الحالة...</p>
+              <h2 class="text-2xl font-bold">العد التنازلي لأقرب بث</h2>
+            </div>
+          </div>
+
+          <p id="next-time" class="text-gray-200">يتم تحديد موعد البث القادم...</p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="countdown">
+            <div class="p-4 rounded-2xl bg-black/50 border border-[#c6a44f]/20 text-center shadow-[0_0_12px_rgba(198,164,79,0.12)]">
+              <div class="text-3xl font-extrabold text-[#ffda6a]" data-unit="days">--</div>
+              <p class="text-xs uppercase tracking-wide text-gray-300">أيام</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-black/50 border border-[#c6a44f]/20 text-center shadow-[0_0_12px_rgba(198,164,79,0.12)]">
+              <div class="text-3xl font-extrabold text-[#ffda6a]" data-unit="hours">--</div>
+              <p class="text-xs uppercase tracking-wide text-gray-300">ساعات</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-black/50 border border-[#c6a44f]/20 text-center shadow-[0_0_12px_rgba(198,164,79,0.12)]">
+              <div class="text-3xl font-extrabold text-[#ffda6a]" data-unit="minutes">--</div>
+              <p class="text-xs uppercase tracking-wide text-gray-300">دقائق</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-black/50 border border-[#c6a44f]/20 text-center shadow-[0_0_12px_rgba(198,164,79,0.12)]">
+              <div class="text-3xl font-extrabold text-[#ffda6a]" data-unit="seconds">--</div>
+              <p class="text-xs uppercase tracking-wide text-gray-300">ثوانٍ</p>
+            </div>
+          </div>
+
+          <div class="rounded-2xl p-4 bg-black/40 border border-[#c6a44f]/25 text-sm text-gray-300 leading-relaxed">
+            <p>
+              إذا كنت تريد أن تكون ضمن أول الحاضرين، جهز التنبيهات قبل الساعة 8:30 مساءً. العداد يتحدث تلقائياً كل ثانية ليعكس الوقت المتبقي بدقة.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline data-reinit>
+    const STREAM_DAYS = [6, 0, 1, 2, 3] // السبت إلى الأربعاء
+    const START_HOUR = 20
+    const START_MINUTE = 30
+    const END_HOUR = 26 // 2:00 صباحًا في اليوم التالي
+    const RIYADH_OFFSET_MS = 3 * 60 * 60 * 1000
+
+    const statusLabel = document.getElementById('status-label')
+    const nextTimeLabel = document.getElementById('next-time')
+    const countdownRoot = document.getElementById('countdown')
+
+    const unitEls = {
+      days: countdownRoot?.querySelector('[data-unit="days"]'),
+      hours: countdownRoot?.querySelector('[data-unit="hours"]'),
+      minutes: countdownRoot?.querySelector('[data-unit="minutes"]'),
+      seconds: countdownRoot?.querySelector('[data-unit="seconds"]'),
+    }
+
+    const formatDateTime = (date) =>
+      new Intl.DateTimeFormat('ar-SA', {
+        timeZone: 'Asia/Riyadh',
+        weekday: 'long',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+      }).format(date)
+
+    const toRiyadhDate = (date) => new Date(date.getTime() + RIYADH_OFFSET_MS)
+    const fromRiyadh = (year, month, day, hour, minute) => new Date(Date.UTC(year, month - 1, day, hour, minute) - RIYADH_OFFSET_MS)
+
+    function getNextStream(now = new Date()) {
+      const nowRiyadh = toRiyadhDate(now)
+      let liveNow = false
+
+      for (let i = 0; i < 10; i += 1) {
+        const candidate = new Date(nowRiyadh.getTime() + i * 24 * 60 * 60 * 1000)
+        const day = candidate.getUTCDay()
+
+        if (!STREAM_DAYS.includes(day)) continue
+
+        const year = candidate.getUTCFullYear()
+        const month = candidate.getUTCMonth() + 1
+        const date = candidate.getUTCDate()
+
+        const start = fromRiyadh(year, month, date, START_HOUR, START_MINUTE)
+        const end = fromRiyadh(year, month, date, END_HOUR, 0)
+
+        if (!liveNow && start <= now && now < end) {
+          liveNow = true
+          continue
+        }
+
+        if (start > now) {
+          return { nextStart: start, liveNow }
+        }
+      }
+
+      return { nextStart: null, liveNow }
+    }
+
+    function updateCountdown() {
+      const now = new Date()
+      const { nextStart, liveNow } = getNextStream(now)
+
+      if (!nextStart || !countdownRoot || !unitEls.days || !unitEls.hours || !unitEls.minutes || !unitEls.seconds) {
+        statusLabel.textContent = 'لا يوجد موعد بث محدد حاليًا'
+        nextTimeLabel.textContent = 'راجع جدول البث للتحديثات القادمة.'
+        return
+      }
+
+      const diff = Math.max(0, nextStart.getTime() - now.getTime())
+      const totalSeconds = Math.floor(diff / 1000)
+
+      const days = Math.floor(totalSeconds / 86400)
+      const hours = Math.floor((totalSeconds % 86400) / 3600)
+      const minutes = Math.floor((totalSeconds % 3600) / 60)
+      const seconds = totalSeconds % 60
+
+      unitEls.days.textContent = days.toString().padStart(2, '0')
+      unitEls.hours.textContent = hours.toString().padStart(2, '0')
+      unitEls.minutes.textContent = minutes.toString().padStart(2, '0')
+      unitEls.seconds.textContent = seconds.toString().padStart(2, '0')
+
+      statusLabel.textContent = liveNow ? 'البث شغال الآن' : 'البث القادم'
+      nextTimeLabel.textContent = `يبدأ البث التالي في ${formatDateTime(nextStart)} (بتوقيت الرياض)`
+    }
+
+    updateCountdown()
+    setInterval(updateCountdown, 1000)
+  </script>
+
+  <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js"></script>
+</Layout>

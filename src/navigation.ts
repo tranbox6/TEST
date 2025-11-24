@@ -3,6 +3,10 @@ import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
 export const headerData = {
   links: [
     {
+      text: 'جدول البث',
+      href: getPermalink('/schedule'),
+    },
+    {
       text: 'Homes',
       links: [
         {

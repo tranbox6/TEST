@@ -16,7 +16,7 @@ const metadata = {
     <div id="root" class="space-y-14"></div>
   </section>
 
-  <script client:load>
+  <script is:inline data-reinit>
     function initChallenges() {
       const fmtNum = (n) => (typeof n === 'number' ? n.toLocaleString('de-DE') : n)
       const url = '/api/challenges.json'

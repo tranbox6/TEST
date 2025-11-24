@@ -3,12 +3,19 @@ import Layout from '~/layouts/PageLayout.astro'
 import fs from 'fs'
 import path from 'path'
 
+type Command = {
+  Id: string
+  Name: string
+  Group: string
+  Commands?: string[]
+}
+
 const metadata = {
   title: 'Commands — TNX6',
   ignoreTitleTemplate: true,
 }
 
-let commands = []
+let commands: Command[] = []
 try {
   const filePath = path.resolve('public/api/commands.json')
   const data = fs.readFileSync(filePath, 'utf-8')
@@ -17,7 +24,7 @@ try {
   console.error('Fehler beim Laden der commands.json:', e)
 }
 
-const groups = {}
+const groups: Record<string, Command[]> = {}
 for (const cmd of commands) {
   if (!groups[cmd.Group]) groups[cmd.Group] = []
   groups[cmd.Group].push(cmd)
