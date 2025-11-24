@@ -142,6 +142,7 @@ const weeklySchedule = [
     function getNextStream(now = new Date()) {
       const nowRiyadh = toRiyadhDate(now)
       let liveNow = false
+      let currentEnd = null
 
       for (let i = 0; i < 10; i += 1) {
         const candidate = new Date(nowRiyadh.getTime() + i * 24 * 60 * 60 * 1000)
@@ -158,28 +159,31 @@ const weeklySchedule = [
 
         if (!liveNow && start <= now && now < end) {
           liveNow = true
+          currentEnd = end
           continue
         }
 
         if (start > now) {
-          return { nextStart: start, liveNow }
+          return { nextStart: start, liveNow, currentEnd }
         }
       }
 
-      return { nextStart: null, liveNow }
+      return { nextStart: null, liveNow, currentEnd }
     }
 
     function updateCountdown() {
       const now = new Date()
-      const { nextStart, liveNow } = getNextStream(now)
+      const { nextStart, liveNow, currentEnd } = getNextStream(now)
 
-      if (!nextStart || !countdownRoot || !unitEls.days || !unitEls.hours || !unitEls.minutes || !unitEls.seconds) {
-        statusLabel.textContent = 'لا يوجد موعد بث محدد حاليًا'
-        nextTimeLabel.textContent = 'راجع جدول البث للتحديثات القادمة.'
+      const targetTime = liveNow ? currentEnd : nextStart
+
+      if (!targetTime || !statusLabel || !nextTimeLabel || !countdownRoot || !unitEls.days || !unitEls.hours || !unitEls.minutes || !unitEls.seconds) {
+        statusLabel?.textContent = 'لا يوجد موعد بث محدد حاليًا'
+        nextTimeLabel?.textContent = 'راجع جدول البث للتحديثات القادمة.'
         return
       }
 
-      const diff = Math.max(0, nextStart.getTime() - now.getTime())
+      const diff = Math.max(0, targetTime.getTime() - now.getTime())
       const totalSeconds = Math.floor(diff / 1000)
 
       const days = Math.floor(totalSeconds / 86400)
@@ -193,7 +197,9 @@ const weeklySchedule = [
       unitEls.seconds.textContent = seconds.toString().padStart(2, '0')
 
       statusLabel.textContent = liveNow ? 'البث شغال الآن' : 'البث القادم'
-      nextTimeLabel.textContent = `يبدأ البث التالي في ${formatDateTime(nextStart)} (بتوقيت الرياض)`
+      nextTimeLabel.textContent = liveNow
+        ? `البث الحالي مستمر حتى ${formatDateTime(currentEnd)} (بتوقيت الرياض)`
+        : `يبدأ البث التالي في ${formatDateTime(nextStart)} (بتوقيت الرياض)`
     }
 
     updateCountdown()
