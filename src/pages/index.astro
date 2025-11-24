@@ -18,7 +18,7 @@ const metadata = {
       </div>
 
       <p class="text-lg text-gray-200 mb-6">
-        أبحث عن المتعة، الضحك، وتحديات المجتمع… وأبث يوميًا
+        أبحث عن المتعة، الضحك، وتحديات المجتمع… وأبث من السبت إلى الأربعاء
       </p>
 
       <div class="flex flex-wrap justify-center gap-4 mb-4">
@@ -53,7 +53,10 @@ const metadata = {
           </span>
 
           <!-- الكلام يسار -->
-          <span class="text-slate-100 text-[13px] md:text-sm">
+          <span
+            id="next-stream-label"
+            class="text-slate-100 text-[13px] md:text-sm"
+          >
             البث القادم خلال
           </span>
 
@@ -206,36 +209,33 @@ const metadata = {
     function startNextStreamCountdown() {
       const timerEl = document.getElementById('next-stream-timer');
       const wrapperEl = document.getElementById('next-stream-wrapper');
+      const labelEl = document.getElementById('next-stream-label');
       if (!timerEl) return;
 
       function update() {
         const now = new Date();
 
+        // لو احنا داخل وقت البث (بس السبت–الأربعاء)
         if (isInStreamWindow(now)) {
-          // داخل وقت البث → نص مع glow
           timerEl.textContent = 'البث شغّال الآن! انضم للبث 👇';
           timerEl.classList.remove('font-mono');
           timerEl.classList.add('font-bold', 'tnx-live-glow');
 
-          if (wrapperEl) {
-            wrapperEl.classList.add('ring-1', 'ring-yellow-400/60');
-          }
+          if (labelEl) labelEl.textContent = 'البث مباشر';
+          if (wrapperEl) wrapperEl.classList.add('ring-1', 'ring-yellow-400/60');
           return;
         }
 
         const next = getNextStreamStart(now);
         if (!next) {
-          // لو صار في خطأ غريب، نوقف العدّاد
           timerEl.textContent = '-- : -- : --';
           timerEl.classList.add('font-mono');
           timerEl.classList.remove('font-bold', 'tnx-live-glow');
-          if (wrapperEl) {
-            wrapperEl.classList.remove('ring-1', 'ring-yellow-400/60');
-          }
+          if (labelEl) labelEl.textContent = 'البث القادم خلال';
+          if (wrapperEl) wrapperEl.classList.remove('ring-1', 'ring-yellow-400/60');
           return;
         }
 
-        // عدّاد تنازلي لأقرب بث (يوم من السبت–الأربعاء)
         const diffMs = next - now;
         const totalSeconds = Math.max(0, Math.floor(diffMs / 1000));
         const h = Math.floor(totalSeconds / 3600);
@@ -249,6 +249,15 @@ const metadata = {
 
         timerEl.classList.add('font-mono');
         timerEl.classList.remove('font-bold', 'tnx-live-glow');
+
+        // لو اليوم مو من أيام البث (خميس أو جمعة) غيّر النص
+        if (labelEl) {
+          if (!isStreamDay(now)) {
+            labelEl.textContent = 'اليوم ما فيه بث - البث القادم بعد';
+          } else {
+            labelEl.textContent = 'البث القادم خلال';
+          }
+        }
 
         if (wrapperEl) {
           wrapperEl.classList.remove('ring-1', 'ring-yellow-400/60');
